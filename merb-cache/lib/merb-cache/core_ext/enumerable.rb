@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Enumerable
   def capture_first
     each do |o|

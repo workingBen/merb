@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb::Cache
   # Store well suited for action caching.
   class ActionStore < AbstractStrategyStore

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'parse_tree'
 require 'ruby2ruby'
 

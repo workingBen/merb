@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb::Cache
   # Cache store that uses files. Usually this is good for fragment
   # and page caching but not object caching.

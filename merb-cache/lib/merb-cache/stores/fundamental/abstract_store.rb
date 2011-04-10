@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # @abstract Subclass and override all methods.
 class Merb::Cache::AbstractStore
 

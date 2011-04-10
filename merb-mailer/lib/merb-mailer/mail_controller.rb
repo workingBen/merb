@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb
 
   # Sending mail from a controller involves three steps:

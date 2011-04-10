@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb::Cache::CacheMixin
   def self.included(base)
     base.extend(ClassMethods)

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb
   # A convinient way to get at Merb::Cache
   def self.cache

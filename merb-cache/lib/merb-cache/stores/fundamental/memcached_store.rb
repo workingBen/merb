@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'memcached'
 
 module Merb::Cache

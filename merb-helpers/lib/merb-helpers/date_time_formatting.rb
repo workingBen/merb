@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'active_support/core_ext/integer/inflections'
 #require 'active_support/core_ext/date_time/conversions'
 

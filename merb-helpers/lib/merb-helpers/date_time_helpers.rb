@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb
   module Helpers
     # Provides a number of methods for displaying and dealing with

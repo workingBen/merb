@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 namespace :haml do
   desc "Compiles all sass files into CSS"
   task :compile_sass do

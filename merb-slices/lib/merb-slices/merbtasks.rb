@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 desc "Show information on application slices"
 task :slices => [ "slices:list" ]
 

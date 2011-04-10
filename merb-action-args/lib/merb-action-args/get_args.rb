@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 if RUBY_PLATFORM == "java"
   require File.dirname(__FILE__) / "jruby_args"
 else

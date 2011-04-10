@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "date"
 require 'merb-helpers/date_time_formatting'
 

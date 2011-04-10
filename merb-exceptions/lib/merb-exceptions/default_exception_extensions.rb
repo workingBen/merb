@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module MerbExceptions
   module DefaultExceptionExtensions
     def self.included(mod)

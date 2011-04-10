@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module GetArgs
   def get_args
     required = []

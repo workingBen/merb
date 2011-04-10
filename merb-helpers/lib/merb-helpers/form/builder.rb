@@ -1,4 +1,4 @@
-#load File.dirname(__FILE__) / ".." / "tag_helpers.rb"
+# encoding: UTF-8
 
 require 'merb-helpers/tag_helpers'
 

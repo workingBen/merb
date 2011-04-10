@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb
   # The AssetsMixin module provides a number of helper methods to views for
   # linking to assets and other pages, dealing with JavaScript and CSS.

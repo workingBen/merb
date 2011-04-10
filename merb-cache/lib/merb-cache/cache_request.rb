@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb
   module Cache
     class CacheRequest < Merb::Request

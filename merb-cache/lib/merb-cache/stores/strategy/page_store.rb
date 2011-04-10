@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb::Cache
   # Store well suited for page caching.
   class PageStore < AbstractStrategyStore

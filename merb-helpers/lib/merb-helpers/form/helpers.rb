@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Form helpers provide a number of methods to simplify the creation of HTML forms.
 # They can work directly with models (bound) or standalone (unbound).
 module Merb::Helpers::Form

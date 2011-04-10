@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "merb-core"
 
 require "merb-action-args/get_args"

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb
   module Helpers
     module Tag    

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb::Cache
   # General purpose store, use for your own contexts. Since it wraps access
   # to multiple fundamental stores, it's easy to use this strategy store

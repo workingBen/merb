@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Methods that are added to the {Merb::Router router}.
 module Merb::Slices::RouterExtensions
 

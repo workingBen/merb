@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "merb-core"
 
 Merb::BootLoader.before_app_loads do

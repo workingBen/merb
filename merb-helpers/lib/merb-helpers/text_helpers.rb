@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Merb::Helpers::Text
   # Allows you to cycle through elements in an array.
   #
