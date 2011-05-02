@@ -19,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.description = 'Merb plugin for mailer support'
   gem.summary     = 'Merb plugin that provides mailer functionality to Merb'
 
-  gem.has_rdoc = 'yard'
   gem.require_paths = ['lib']
   gem.files = Dir['Generators', 'Rakefile', '{lib,spec,docs}/**/*', 'README*', 'LICENSE*', 'TODO*'] & `git ls-files -z`.split("\0")
 

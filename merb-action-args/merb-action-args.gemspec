@@ -19,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.description = 'Merb plugin that supports controller action arguments'
   gem.summary     = 'Merb plugin that provides support for named parameters in your controller actions'
 
-  gem.has_rdoc = 'yard'
   gem.require_paths = ['lib']
   gem.files = Dir['Rakefile', '{lib,spec,docs}/**/*', 'README*', 'LICENSE*', 'TODO*'] & `git ls-files -z`.split("\0")
 
