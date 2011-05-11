@@ -1,4 +1,5 @@
 require File.expand_path("../merb-core/lib/merb-core/version.rb", __FILE__)
+require File.expand_path("../merb/lib/merb/stack_info.rb", __FILE__)
 
 require 'fileutils'
 
@@ -25,22 +26,7 @@ yard_local_options = [
   ['--no-yardopts']
 ]
 
-merb_stack_gems = [
-  { :name => 'merb-core',             :path => "#{ROOT}/merb-core",             :doc => :yard },
-  { :name => 'merb-action-args',      :path => "#{ROOT}/merb-action-args",      :doc => :yard },
-  { :name => 'merb-assets',           :path => "#{ROOT}/merb-assets",           :doc => :yard },
-  { :name => 'merb-slices',           :path => "#{ROOT}/merb-slices",           :doc => :yard },
-  { :name => 'merb-cache',            :path => "#{ROOT}/merb-cache",            :doc => :yard },
-  { :name => 'merb-gen',              :path => "#{ROOT}/merb-gen",              :doc => :yard },
-  { :name => 'merb-haml',             :path => "#{ROOT}/merb-haml",             :doc => :yard },
-  { :name => 'merb-helpers',          :path => "#{ROOT}/merb-helpers",          :doc => :yard },
-  { :name => 'merb-mailer',           :path => "#{ROOT}/merb-mailer",           :doc => :yard },
-  { :name => 'merb-param-protection', :path => "#{ROOT}/merb-param-protection", :doc => :yard },
-  { :name => 'merb-exceptions',       :path => "#{ROOT}/merb-exceptions",       :doc => :yard },
-  { :name => 'merb-auth',             :path => "#{ROOT}/../merb-auth",          :doc => :rdoc },
-  { :name => 'merb_datamapper',       :path => "#{ROOT}/../merb_datamapper",    :doc => :rdoc },
-  { :name => 'merb',                  :path => "#{ROOT}/merb",                  :doc => :rdoc }
-]
+merb_stack_gems = Merb::STACK_GEMS
 
 def gem_command(command, *args)
   sh "#{RUBY} -S gem #{command} #{args.join(' ')}"
@@ -54,7 +40,7 @@ end
 desc "Install all merb stack gems"
 task :install do
   merb_stack_gems.each do |gem_info|
-    Dir.chdir(gem_info[:path]) { rake_command "install" }
+    Dir.chdir(File.join(ROOT, gem_info[:path])) { rake_command "install" }
   end
 end
 
@@ -68,7 +54,7 @@ end
 desc "Build all merb stack gems"
 task :build do
   merb_stack_gems.each do |gem_info|
-    Dir.chdir(gem_info[:path]) { gem_command "build", "#{gem_info[:name]}.gemspec" }
+    Dir.chdir(File.join(ROOT, gem_info[:path])) { gem_command "build", "#{gem_info[:name]}.gemspec" }
   end
 end
 
@@ -76,7 +62,7 @@ desc "Run specs for all merb stack gems"
 task :spec do
   # Omit the merb metagem, no specs there
   merb_stack_gems[0..-2].each do |gem_info|
-    Dir.chdir(gem_info[:path]) { rake_command "spec" }
+    Dir.chdir(File.join(ROOT, gem_info[:path])) { rake_command "spec" }
   end
 end
 
