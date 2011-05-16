@@ -1,5 +1,7 @@
 # encoding: UTF-8
 
+require 'pathname'
+
 module Merb
   module Slices
     
@@ -11,7 +13,7 @@ module Merb
       #
       # @return [Module] The slice module itself.
       def [](module_name)
-        Object.full_const_get(module_name.to_s) if exists?(module_name)
+        module_name.to_s.constantize if exists?(module_name)
       end
 
       # Helper method to transform a slice filename to a module Symbol.
@@ -62,8 +64,8 @@ module Merb
       # given, `Merb::Plugins.config[:merb_slices][:search_path]` (String/Array)
       def register_slices_from_search_path!
         slice_files_from_search_path.each do |slice_file|
-          absolute_path = File.expand_path(slice_file)
-          Merb.logger.info!("Found slice '#{File.basename(absolute_path, '.rb')}' in search path at #{absolute_path.relative_path_from(Merb.root)}")
+          absolute_path = Pathname.new(File.expand_path(slice_file))
+          Merb.logger.info!("Found slice '#{File.basename(absolute_path, '.rb')}' in search path at #{absolute_path.relative_path_from(Pathname.new(Merb.root))}")
           Merb::Slices::Loader.load_classes(absolute_path)
         end
       end
@@ -95,7 +97,7 @@ module Merb
       #   module name.
       def activate(slice_module)  
         unless slice_file = self.files[slice_module.to_s]
-          module_name_underscored = slice_module.to_s.snake_case.escape_regexp
+          module_name_underscored = slice_module.to_s.underscore.escape_regexp
           module_name_dasherized  = module_name_underscored.tr('_', '-').escape_regexp
           regexp = Regexp.new(/\/(#{module_name_underscored}|#{module_name_dasherized})\/lib\/(#{module_name_underscored}|#{module_name_dasherized})\.rb$/)
           slice_file = slice_files_from_search_path.find { |path| path.match(regexp) } # from search path(s)
@@ -217,7 +219,7 @@ module Merb
       # @return [Array<Module>] A sorted array of all slice modules.
       def slices
         slice_names.map do |name|
-          Object.full_const_get(name) rescue nil
+          name.constantize rescue nil
         end.compact
       end
 
@@ -305,7 +307,7 @@ module Merb
       # @return [Module] The module that has been setup.
       def setup_module(module_name)
         Object.make_module(module_name)
-        slice_mod = Object.full_const_get(module_name)
+        slice_mod = module_name.constantize
         slice_mod.extend(ModuleMixin)
         slice_mod
       end

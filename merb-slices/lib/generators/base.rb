@@ -23,7 +23,11 @@ module Merb::Generators
   end
   
   class BaseSliceGenerator < NamedGenerator
-    
+    def initialize(*args)
+      Merb.disable(:initfile)
+      super
+    end
+
     def self.common_template(name, template_source)
       common_base_dir = File.expand_path(File.dirname(__FILE__))
       template name do |t|
@@ -31,9 +35,9 @@ module Merb::Generators
         t.destination = template_source
       end
     end
-    
+
   end
-  
+
   add :slice, SliceGenerator
-  
+
 end

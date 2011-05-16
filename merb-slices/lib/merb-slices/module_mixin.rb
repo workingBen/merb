@@ -169,7 +169,7 @@ module Merb
       #   requested type.
       def public_dir_for(type)
         dir = type.is_a?(Symbol) ? self.app_dir_for(type) : self.app_dir_for(:public) / type
-        dir = dir.relative_path_from(Merb.dir_for(:public)) rescue '.'
+        dir = dir.relative_path_from(Merb.dir_for(:public))
         dir == '.' ? '/' : "/#{dir}"
       end
 
@@ -453,17 +453,17 @@ module Merb
       #   using {Merb.push_path}.
       def collect_load_paths(modify_load_path = true, push_merb_path = true)
         self.collected_slice_paths.clear; self.collected_app_paths.clear
-        Merb.push_path(:"#{self.name.snake_case}_file", File.dirname(self.file), File.basename(self.file))
+        Merb.push_path(:"#{self.name.underscore}_file", File.dirname(self.file), File.basename(self.file))
         self.collected_app_paths << self.file
         self.slice_paths.each do |component, path|
           if File.directory?(component_path = path.first)
-            $LOAD_PATH.unshift(component_path) if modify_load_path && component.in?(:model, :controller, :lib) && !$LOAD_PATH.include?(component_path)
+            $LOAD_PATH.unshift(component_path) if modify_load_path && [:model, :controller, :lib].include?(component) && !$LOAD_PATH.include?(component_path)
             # slice-level component load path - will be preceded by application/app/component - loaded next by Setup.load_classes
             self.collected_slice_paths << path.first / path.last if path.last
             # app-level component load path (override) path - loaded by BootLoader::LoadClasses
             if (app_glob = self.app_glob_for(component)) && File.directory?(app_component_dir = self.app_dir_for(component))
               self.collected_app_paths << app_component_dir / app_glob
-              Merb.push_path(:"#{self.name.snake_case}_#{component}", app_component_dir, app_glob) if push_merb_path
+              Merb.push_path(:"#{self.name.underscore}_#{component}", app_component_dir, app_glob) if push_merb_path
             end
           end
         end

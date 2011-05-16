@@ -15,7 +15,7 @@ describe Merb::Generators::FullSliceGenerator do
     
     it "should create a number of templates" do
       @generator.invoke!
-      files = Dir[slices_path / 'testing' / '**' / '*'].map do |path| 
+      files = Dir[slices_path / 'testing' / '**' / '*'].map do |path|
         path.relative_path_from(slices_path)
       end
       expected = [
