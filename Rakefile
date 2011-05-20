@@ -1,6 +1,14 @@
 require File.expand_path("../merb-core/lib/merb-core/version.rb", __FILE__)
 require File.expand_path("../merb/lib/merb/stack_info.rb", __FILE__)
 
+require 'rubygems'
+
+begin
+  # this may be necessary for the Gem build process
+  require 'psych'
+rescue
+end
+
 require 'fileutils'
 
 ROOT = File.dirname(__FILE__)
@@ -28,33 +36,35 @@ yard_local_options = [
 
 merb_stack_gems = Merb::STACK_GEMS
 
-def gem_command(command, *args)
-  sh "#{RUBY} -S gem #{command} #{args.join(' ')}"
-end
-
 def rake_command(command)
   sh "#{RUBY} -S rake #{command}"
 end
 
+namespace :gems do
+  desc "Build all merb stack gems"
+  task :build do
+    Gem.configuration.verbose = false
 
-desc "Install all merb stack gems"
-task :install do
-  merb_stack_gems.each do |gem_info|
-    Dir.chdir(File.join(ROOT, gem_info[:path])) { rake_command "install" }
-  end
-end
+    merb_stack_gems.each do |gem_info|
+      gem_dir = File.join(ROOT, gem_info[:path])
+      next unless File.directory?(gem_dir)
 
-desc "Uninstall all merb stack gems"
-task :uninstall do
-  merb_stack_gems.each do |gem_info|
-    gem_command "uninstall #{gem_info[:name]} --version=#{Merb::VERSION}"
-  end
-end
+      begin
+        Dir.chdir(gem_dir) do
+          gspec = Gem::Specification.load("#{gem_info[:name]}.gemspec")
+          fname = Gem::Builder.new(gspec).build
 
-desc "Build all merb stack gems"
-task :build do
-  merb_stack_gems.each do |gem_info|
-    Dir.chdir(File.join(ROOT, gem_info[:path])) { gem_command "build", "#{gem_info[:name]}.gemspec" }
+          if File.exist? fname
+            FileUtils.mv(fname, ROOT)
+          end
+
+          puts "Built gem: #{gem_info[:name]}"
+        end
+      rescue => e
+        # maybe one of the out-of-repo gems was missing
+        STDERR.puts "Error building #{gem_info[:name]}: #{e} (#{e.class})"
+      end
+    end
   end
 end
 
