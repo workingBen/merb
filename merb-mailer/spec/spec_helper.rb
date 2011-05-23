@@ -1,4 +1,5 @@
-require "rubygems"
+require 'rubygems'
+require 'stringio'
 
 # Use current merb-core sources if running from a typical dev checkout.
 lib = File.expand_path('../../../merb-core/lib', __FILE__)
@@ -18,6 +19,7 @@ require 'rspec'
 
 Merb::Config.use do |c|
   c[:session_store] = :memory
+  c[:log_stream] = StringIO.new
 end
 
 

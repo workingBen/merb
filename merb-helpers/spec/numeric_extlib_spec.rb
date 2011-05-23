@@ -45,7 +45,7 @@ describe "Numeric helpers" do
      end
    end
 
-   describe "to_concurrency" do
+   describe "to_currency" do
 
      before(:each) do
        @number = 1234567890.50
@@ -71,7 +71,8 @@ describe "Numeric helpers" do
        1234567890.506.to_currency(:'en-US', :precision => 1).should == "$1,234,567,890.5"
        1234567890.516.to_currency(:'en-US', :unit => "€").should == "€1,234,567,890.52"
        1234567890.506.to_currency(:'en-US', :precision => 3, :unit => "€").should == "€1,234,567,890.506"
-       1234567890.506.to_currency(:'en-AU', :unit => "$AUD", :format => '%n %u').should == "1,234,567,890.51 $AUD"
+       1234567890.506.to_currency(:'en-US', :precision => 3, :unit => "€").should == "€1,234,567,890.506"
+       1234567890.506.to_currency(:'en-US', :unit => "$AUD", :format => '%n %u').should == "1,234,567,890.51 $AUD"
      end
 
    end

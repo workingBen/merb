@@ -1,4 +1,5 @@
-require "rubygems"
+require 'rubygems'
+require 'stringio'
 
 # Use current merb-core sources if running from a typical dev checkout.
 lib = File.expand_path('../../../merb-core/lib', __FILE__)
@@ -14,6 +15,7 @@ require 'rspec'
 # Additional files required for specs
 require "controllers/param_protection"
 
+Merb::Config[:log_stream] = StringIO.new
 Merb.start :environment => 'test'
 
 RSpec.configure do |config|
