@@ -27,3 +27,5 @@ doc/*
 */.yardoc/*
 *.rbc
 rspec_results.html
+.bundle/
+Gemfile.lock

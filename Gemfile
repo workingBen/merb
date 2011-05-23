@@ -7,6 +7,10 @@ gem 'rake'
 gem 'rack'
 gem 'mime-types', '>= 1.16'
 gem 'json'
+gem 'hpricot'
+gem 'templater', :git => 'git://github.com/ngollan/templater.git'
+gem 'mailfactory'
+
 
 gem 'rspec',  '>= 2.5'
 gem 'webrat', '>= 0.7'

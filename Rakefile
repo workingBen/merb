@@ -6,7 +6,7 @@ require 'rubygems'
 begin
   # this may be necessary for the Gem build process
   require 'psych'
-rescue
+rescue LoadError
 end
 
 require 'fileutils'
@@ -40,30 +40,38 @@ def rake_command(command)
   sh "#{RUBY} -S rake #{command}"
 end
 
-namespace :gems do
-  desc "Build all merb stack gems"
-  task :build do
-    Gem.configuration.verbose = false
+desc "Build all merb stack gems"
+task :gems do
+  Gem.configuration.verbose = false
 
-    merb_stack_gems.each do |gem_info|
-      gem_dir = File.join(ROOT, gem_info[:path])
-      next unless File.directory?(gem_dir)
+  destdir = File.join(ROOT, 'pkg')
+  Dir.mkdir(destdir) unless File.directory?(destdir)
 
-      begin
-        Dir.chdir(gem_dir) do
-          gspec = Gem::Specification.load("#{gem_info[:name]}.gemspec")
-          fname = Gem::Builder.new(gspec).build
+  merb_stack_gems.each do |gem_info|
+    gem_dir = File.join(ROOT, gem_info[:path])
+    next unless File.directory?(gem_dir)
 
-          if File.exist? fname
-            FileUtils.mv(fname, ROOT)
-          end
+    begin
+      Dir.chdir(gem_dir) do
+        gspec_file = "#{gem_info[:name]}.gemspec"
 
-          puts "Built gem: #{gem_info[:name]}"
+        unless File.exist?(gspec_file)
+          STDERR.puts "No gemfile: #{File.join(gem_dir, gspec_file)}"
+          next
         end
-      rescue => e
-        # maybe one of the out-of-repo gems was missing
-        STDERR.puts "Error building #{gem_info[:name]}: #{e} (#{e.class})"
+
+        gspec = Gem::Specification.load("#{gem_info[:name]}.gemspec")
+        fname = Gem::Builder.new(gspec).build
+
+        if File.exist? fname
+          FileUtils.mv(fname, destdir)
+        end
+
+        puts "Built gem: #{gem_info[:name]}"
       end
+    rescue => e
+      # maybe one of the out-of-repo gems was missing
+      STDERR.puts "Error building #{gem_info[:name]}: #{e} (#{e.class})#{$/}#{e.backtrace.join($/)}"
     end
   end
 end
@@ -115,11 +123,10 @@ task :yardopts do
   end
 end
 
-task :doc => [:yard]
 begin
   require 'yard'
 
-  YARD::Rake::YardocTask.new do |t|
+  YARD::Rake::YardocTask.new :doc do |t|
     t.files = docfile_gen(merb_stack_gems)
     t.options = (yard_options + yard_local_options).flatten
   end
