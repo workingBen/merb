@@ -1,5 +1,6 @@
-require 'spec_helper'
-require 'merb-cache/stores/fundamental/abstract_store_spec'
+# encoding: utf-8
+
+require File.join(File.dirname(__FILE__), 'store_spec_helper')
 
 describe Merb::Cache::FileStore do
   it_should_behave_like 'all stores'

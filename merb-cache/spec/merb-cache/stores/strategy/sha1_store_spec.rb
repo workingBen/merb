@@ -1,5 +1,6 @@
-require 'spec_helper'
-require 'merb-cache/stores/strategy/abstract_strategy_store_spec'
+# encoding: utf-8
+
+require File.join(File.dirname(__FILE__), 'strategy_store_helper')
 
 describe Merb::Cache::SHA1Store do
   it_should_behave_like 'all strategy stores'

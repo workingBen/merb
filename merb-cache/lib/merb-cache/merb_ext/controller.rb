@@ -35,11 +35,11 @@ module Merb::Cache::CacheMixin
         target_controller, target_action = self, target
       end
 
-      after("_eager_cache_#{trigger_action}_to_#{target_controller.name.snake_case}__#{target_action}_after", conditions.slice(:if, :unless).merge(:with => [target_controller, target_action, conditions, blk], :only => trigger_action))
+      after("_eager_cache_#{trigger_action}_to_#{target_controller.name.underscore}__#{target_action}_after", conditions.slice(:if, :unless).merge(:with => [target_controller, target_action, conditions, blk], :only => trigger_action))
 
       #FIXME: workaround for long filename in YARD when using 1.9-style parser
       #alias_method "_eager_cache_#{trigger_action}_to_#{target_controller.name.snake_case}__#{target_action}_after", :_eager_cache_after
-      send(:alias_method, "_eager_cache_#{trigger_action}_to_#{target_controller.name.snake_case}__#{target_action}_after", :_eager_cache_after)
+      send(:alias_method, "_eager_cache_#{trigger_action}_to_#{target_controller.name.underscore}__#{target_action}_after", :_eager_cache_after)
     end
 
     def eager_dispatch(action, params = {}, env = {}, blk = nil)
