@@ -10,9 +10,14 @@ gem 'json'
 gem 'hpricot'
 gem 'templater', :git => 'git://github.com/ngollan/templater.git'
 gem 'mailfactory'
-gem 'memcached'
 gem 'haml'
 gem 'rack'
+
+# memcached releases after that up to at least 1.2.6 don't build on rbx
+# and reportedly JRuby:
+#  https://github.com/fauna/memcached/issues/49
+# -- 2011-05-25
+gem 'memcached', '= 1.2.3'
 
 gem 'rspec',  '>= 2.5'
 gem 'webrat', '>= 0.7'

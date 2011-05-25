@@ -37,7 +37,7 @@ yard_local_options = [
 merb_stack_gems = Merb::STACK_GEMS
 
 def rake_command(command)
-  sh "#{RUBY} -S rake #{command}"
+  ruby '-S', 'rake', command, :verbose => false
 end
 
 desc "Build all merb stack gems"
