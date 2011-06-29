@@ -8,7 +8,10 @@ gem 'rack'
 gem 'mime-types', '>= 1.16'
 gem 'json'
 gem 'hpricot'
-gem 'templater', :git => 'git://github.com/ngollan/templater.git'
+
+#gem 'templater', :git => 'git://github.com/ngollan/templater.git'
+gem 'thor'
+
 gem 'mailfactory'
 gem 'haml'
 gem 'rack'
