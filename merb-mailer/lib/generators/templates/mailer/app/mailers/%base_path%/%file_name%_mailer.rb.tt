@@ -6,6 +6,6 @@ class <%= class_name %>Mailer < Merb::MailController
     # read more at http://wiki.merbivore.com/pages/mailers
     render_mail
   end
-  
+
 end
 <% end -%>

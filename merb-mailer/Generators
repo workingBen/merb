@@ -1,4 +1,3 @@
 scope 'merb-gen' do
-  dir = File.join(File.dirname(__FILE__), 'lib', 'generators/')
-  Merb.add_generators dir + 'mailer_generator'
+  require File.join(File.dirname(__FILE__), 'lib', 'generators', 'mailer_generator')
 end

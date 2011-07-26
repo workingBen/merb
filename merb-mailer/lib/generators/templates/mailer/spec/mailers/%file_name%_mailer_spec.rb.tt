@@ -16,23 +16,23 @@ module MailControllerTestHelper
 
   # Helper to deliver
   def deliver(action, mail_params = {}, send_params = {})
-    <%= class_name %>Mailer.dispatch_and_deliver(action, { :from => "no-reply@webapp.com", :to => "recepient@person.com" }.merge(mail_params), send_params)
+    <%= full_class_name %>Mailer.dispatch_and_deliver(action, { :from => "no-reply@webapp.com", :to => "recepient@person.com" }.merge(mail_params), send_params)
     @delivery = last_delivered_mail
   end
 end
 
-describe <%= class_name %>Mailer, "#notify_on_event email template" do
+describe <%= full_class_name %>Mailer, "#notify_on_event email template" do
   include MailControllerTestHelper
-  
+
   before :each do
     clear_mail_deliveries
-    
+
     # instantiate some fixture objects
   end
-    
+
   it "includes welcome phrase in email text" do
     violated "Mailer controller deserves to have specs, too."
-    
+
     # <%= class_name %>Mailer.dispatch_and_deliver(:notify_on_event, {}, { :name => "merb-mailer user" })
     # last_delivered_mail.text.should =~ /Hello, merb-mailer user!/
   end
